@@ -1,0 +1,66 @@
+import javax.swing.JTable;
+
+private void loadTables()
+{
+	ResultSet rsBreakfast = handler.loadProgressTable(“Breakfast”);
+ResultSet rsLunch = handler.loadProgressTable(“Lunch”);
+ResultSet rsDinner = handler.loadProgressTable(“Dinner”);
+ResultSet rsSnacks = handler.loadProgressTable(“Snacks”);
+
+filltable(breakfastTable, rsBreakfast, “Breakfast”);
+filltable(lunchTable, rsBreakfast, “Lunch”);
+filltable(dinnerTable, rsBreakfast, “Dinner”);
+filltable(snacksTable, rsBreakfast, “Snacks”);
+}
+
+private void fillTable(JTable table, ResultSet rs, String mealTime)
+{
+	If (rs == null) 
+{
+	System.out.println(“null rs”);
+	Return;
+}
+
+String columnNames[] = {“Name”, “Quantity”, “Calories”, “Protein”, “Fats”, “Carbs”, “Category”, “Modify”};
+
+DefaultTableModel tableModel = new DefaultTableModel();
+
+tableModel.setColumnIdentifiers(columnNames);
+
+try 
+{
+	while (rs.next())
+{
+	String name = rs.getString(“name”);
+	int quantity = rs.getInt(“quantity”);
+	double calories = rs.getDouble(“calories);
+double protein = rs.getDouble(“protein”);
+double fats = rs.getDouble(“fats”);
+double carbs = rs.getDouble(“carbs”);
+String category = rs.getString(“category”);
+
+Object row[] = new Object[8];
+
+row[0] = name;
+row[1] = quantity;
+row[2] = (double) (quantity * calories) / 100;
+row[3] = (double) (quantity * protein) / 100;
+row[4] = (double) (quantity * fats) / 100;
+row[5] = (double) (quantity * carbs) / 100;
+row[6] = category;
+row[7] = “Edit”;
+
+tableModel.addRow(row);
+
+
+}
+} catch (Exception e) 
+{
+	System.out.println(e.getMessage());
+}
+
+Table.setModel(tableModel);
+
+TableButton tablebutton = new TableButton(table, null, 7)
+
+}
